@@ -9,7 +9,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class MovieResponse {
+public class MovieListResponse {
 
     @JsonProperty("_embedded")
     private Embedded embedded;

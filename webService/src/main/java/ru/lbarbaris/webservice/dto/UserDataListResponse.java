@@ -10,15 +10,16 @@ import java.util.List;
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ApiResponse {
+public class UserDataListResponse {
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonProperty("_embedded")
     private  Embedded embedded;
 
     @Getter
     @Setter
     @JsonIgnoreProperties(ignoreUnknown = true)
-    private static class Embedded{
+    public static class Embedded{
         @JsonProperty("userDatas")
         private List<UserData> userDataList;
     }

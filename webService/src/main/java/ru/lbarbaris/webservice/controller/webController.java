@@ -5,25 +5,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import ru.lbarbaris.webservice.dataServiceDAO.MovieService;
+import ru.lbarbaris.webservice.dataServiceDAO.UserDataService;
 import ru.lbarbaris.webservice.dto.Movie;
-import ru.lbarbaris.webservice.dto.MovieResponse;
 
 import java.util.List;
 
 @Log4j2
 @Controller
-public class ImageController {
+public class webController {
     @Autowired
     private MovieService movieService;
 
-    @GetMapping("/test")
-    public String showImages2(Model model) {
-        List<Movie> movies = movieService.getMovies("http://localhost:8081/movies");
+    @Autowired
+    private UserDataService userDataService;
+
+    @GetMapping("/myMovies")
+    public String myMovies(Model model) {
+        List<Movie> movies = movieService.getMoviesList();
         log.info(movies);
         model.addAttribute("Movies", movies);
-        return "images";
+        System.out.println(userDataService.getUserData("JohnDoe"));
+        return "myMovies";
 
 
 
