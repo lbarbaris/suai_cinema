@@ -26,6 +26,7 @@ public class UserDataService {
 
     public UserData getUserData(String username){
         WebClient webClient = webClientBuilder.build();
+
         return webClient.get()
                 .uri(links.userDataByUsername.getDescription() + username)
                 .retrieve()
@@ -33,4 +34,18 @@ public class UserDataService {
                 .block();
 
     }
+
+    public List<Movie> getMovies(String url) throws Exception {
+        WebClient webClient = webClientBuilder.build();
+        return webClient.get()
+                .uri(url)
+                .retrieve()
+                .bodyToMono(MovieListResponse.class)
+                .block()
+                .getEmbedded()
+                .getMovieList();
+
+    }
+
+
 }

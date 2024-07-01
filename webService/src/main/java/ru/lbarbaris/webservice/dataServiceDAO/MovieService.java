@@ -15,8 +15,9 @@ public class MovieService {
     @Autowired
     private WebClient.Builder webClientBuilder;
 
-    public List<Movie> getMoviesList(){
+    public List<Movie> getMoviesList(Long id){
         WebClient webClient = webClientBuilder.build();
+
         return webClient.get()
                 .uri(links.allMovies.getDescription())
                 .retrieve()
@@ -25,4 +26,6 @@ public class MovieService {
                 .getEmbedded()
                 .getMovieList();
     }
+
+
 }

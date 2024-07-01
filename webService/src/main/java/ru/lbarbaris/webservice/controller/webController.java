@@ -21,11 +21,11 @@ public class webController {
     private UserDataService userDataService;
 
     @GetMapping("/myMovies")
-    public String myMovies(Model model) {
-        List<Movie> movies = movieService.getMoviesList();
+    public String myMovies(Model model) throws Exception {
+        List<Movie> movies = userDataService.getMovies(userDataService.getUserData("JohnDoe").getMovieLink());
         log.info(movies);
         model.addAttribute("Movies", movies);
-        System.out.println(userDataService.getUserData("JohnDoe"));
+
         return "myMovies";
 
 
