@@ -15,11 +15,22 @@ public class MovieService {
     @Autowired
     private WebClient.Builder webClientBuilder;
 
-    public List<Movie> getMoviesList(Long id){
+    public List<Movie> getMoviesList(){
         WebClient webClient = webClientBuilder.build();
 
         return webClient.get()
                 .uri(links.allMovies.getDescription())
+                .retrieve()
+                .bodyToMono(MovieListResponse.class)
+                .block()
+                .getEmbedded()
+                .getMovieList();
+    }
+
+    public List<Movie> getMoviesList(String username){
+        WebClient webClient = webClientBuilder.build();
+        return webClient.get()
+                .uri(links.moviesByUsername.getDescription() + username)
                 .retrieve()
                 .bodyToMono(MovieListResponse.class)
                 .block()

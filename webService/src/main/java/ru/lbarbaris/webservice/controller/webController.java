@@ -2,6 +2,8 @@ package ru.lbarbaris.webservice.controller;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,10 +24,8 @@ public class webController {
 
     @GetMapping("/myMovies")
     public String myMovies(Model model) throws Exception {
-        List<Movie> movies = userDataService.getMovies(userDataService.getUserData("JohnDoe").getMovieLink());
-        log.info(movies);
+        List<Movie> movies = movieService.getMoviesList(SecurityContextHolder.getContext().getAuthentication().getName());
         model.addAttribute("Movies", movies);
-
         return "myMovies";
 
 

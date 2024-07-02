@@ -13,10 +13,10 @@ public class UserDataService {
     @Autowired
     private WebClient.Builder webClientBuilder;
 
-    public List<UserData> getUserDataList(String url){
+    public List<UserData> getUserDataList(){
         WebClient webClient = webClientBuilder.build();
         return webClient.get()
-                .uri(url)
+                .uri(links.allUsers.getDescription())
                 .retrieve()
                 .bodyToMono(UserDataListResponse.class)
                 .block()
@@ -35,17 +35,7 @@ public class UserDataService {
 
     }
 
-    public List<Movie> getMovies(String url) throws Exception {
-        WebClient webClient = webClientBuilder.build();
-        return webClient.get()
-                .uri(url)
-                .retrieve()
-                .bodyToMono(MovieListResponse.class)
-                .block()
-                .getEmbedded()
-                .getMovieList();
 
-    }
 
 
 }
