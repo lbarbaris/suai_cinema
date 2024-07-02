@@ -5,7 +5,7 @@
     <title>Images</title>
 </head>
 <body>
-<h1>Images</h1>
+<h1 th:text="${User.username}"></h1>
 <div th:each="movie : ${Movies} ">
     <h2 th:text="${movie.name}"></h2>
 </div>
