@@ -10,5 +10,8 @@ import java.util.List;
 
 @Repository
 public interface UserDataRepository extends JpaRepository<UserData, Long> {
+
     public UserData getUserDataByUsername(@Param("username") String username);
+
+
 }

@@ -30,7 +30,7 @@ public class webController {
 
 
 
-/*        List<String> imageUrls = List.of(
+ /*        List<String> imageUrls = List.of(
                     "http://image.tmdb.org/t/p/w500/hxP5zubomplKlOZaXmgHd1P9WsN.jpg"
         );
         model.addAttribute("imageUrls", imageUrls);
