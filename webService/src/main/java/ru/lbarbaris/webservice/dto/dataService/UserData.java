@@ -1,4 +1,4 @@
-package ru.lbarbaris.webservice.dto;
+package ru.lbarbaris.webservice.dto.dataService;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;

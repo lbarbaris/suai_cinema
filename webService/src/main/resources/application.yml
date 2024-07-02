@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: webService
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+  datasource:
+    url: jdbc:mysql://localhost:3306/users?useSSL=false&serverTimezone=UTC
+    username: root
+    password: Rambuser1
+movieAPI:
+  key:
+    74f35cc9ea5a669c911e4d9c0c95c7c8

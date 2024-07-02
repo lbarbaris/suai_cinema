@@ -1,10 +1,10 @@
-package ru.lbarbaris.webservice.dataServiceDAO;
+package ru.lbarbaris.webservice.service.dataService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import ru.lbarbaris.webservice.dto.Movie;
-import ru.lbarbaris.webservice.dto.MovieListResponse;
+import ru.lbarbaris.webservice.dto.dataService.Movie;
+import ru.lbarbaris.webservice.dto.dataService.MovieListResponse;
 import ru.lbarbaris.webservice.dto.links;
 
 import java.util.List;

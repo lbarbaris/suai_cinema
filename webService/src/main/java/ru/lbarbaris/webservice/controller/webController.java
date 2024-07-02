@@ -6,10 +6,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import ru.lbarbaris.webservice.dataServiceDAO.MovieService;
-import ru.lbarbaris.webservice.dataServiceDAO.UserDataService;
-import ru.lbarbaris.webservice.dto.Movie;
-import ru.lbarbaris.webservice.dto.UserData;
+import ru.lbarbaris.webservice.service.dataService.MovieService;
+import ru.lbarbaris.webservice.service.dataService.UserDataService;
+import ru.lbarbaris.webservice.dto.dataService.Movie;
+import ru.lbarbaris.webservice.dto.dataService.UserData;
+import ru.lbarbaris.webservice.service.site.SiteService;
 
 import java.util.List;
 import java.util.Map;
@@ -23,11 +24,15 @@ public class webController {
     @Autowired
     private UserDataService userDataService;
 
+    @Autowired
+    private SiteService siteService;
+
     @GetMapping("/myMovies")
     public String myMovies(Model model){
         String authName = SecurityContextHolder.getContext().getAuthentication().getName();
         UserData userData = userDataService.getUserData(authName);
         List<Movie> movies = movieService.getMoviesList(authName);
+        System.out.println(siteService.getMoviesList());
         model.addAllAttributes(Map.of("Movies", movies, "User", userData));
         return "myMovies";
 
@@ -38,6 +43,11 @@ public class webController {
         );
         model.addAttribute("imageUrls", imageUrls);
         return "images";*/
+    }
+
+    @GetMapping
+    public String allMovies(Model model){
+        return "allMovies";
     }
 
 /*    @GetMapping("/profile/{username}")

@@ -1,9 +1,11 @@
-package ru.lbarbaris.webservice.dataServiceDAO;
+package ru.lbarbaris.webservice.service.dataService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import ru.lbarbaris.webservice.dto.*;
+import ru.lbarbaris.webservice.dto.dataService.UserData;
+import ru.lbarbaris.webservice.dto.dataService.UserDataListResponse;
 
 import java.util.List;
 
