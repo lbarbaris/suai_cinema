@@ -2,7 +2,6 @@ package ru.lbarbaris.webservice.controller;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,8 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import ru.lbarbaris.webservice.dataServiceDAO.MovieService;
 import ru.lbarbaris.webservice.dataServiceDAO.UserDataService;
 import ru.lbarbaris.webservice.dto.Movie;
+import ru.lbarbaris.webservice.dto.UserData;
 
 import java.util.List;
+import java.util.Map;
 
 @Log4j2
 @Controller
@@ -23,9 +24,11 @@ public class webController {
     private UserDataService userDataService;
 
     @GetMapping("/myMovies")
-    public String myMovies(Model model) throws Exception {
-        List<Movie> movies = movieService.getMoviesList(SecurityContextHolder.getContext().getAuthentication().getName());
-        model.addAttribute("Movies", movies);
+    public String myMovies(Model model){
+        String authName = SecurityContextHolder.getContext().getAuthentication().getName();
+        UserData userData = userDataService.getUserData(authName);
+        List<Movie> movies = movieService.getMoviesList(authName);
+        model.addAllAttributes(Map.of("Movies", movies, "User", userData));
         return "myMovies";
 
 
