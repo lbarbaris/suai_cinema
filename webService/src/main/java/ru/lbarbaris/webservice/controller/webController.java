@@ -52,7 +52,7 @@ public class webController {
                                 @RequestParam String description,
                                 @RequestParam String imageurl) {
         Movie movie = new Movie(imageurl, name, description, rating);
-        movieService.
+        /*movieService.*/
         return "redirect:/myMovies";
     }
 /*    @GetMapping("/profile/{username}")

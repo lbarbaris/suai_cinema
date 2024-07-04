@@ -21,7 +21,7 @@ public class MovieServiceImpl implements MovieService {
     private UserDataRepository userDataRepository;
 
     @Override
-    public void save(MovieResponse movieResponse) {
+    public Movie save(MovieResponse movieResponse) {
         UserData userData;
         Movie movie;
 
@@ -62,10 +62,10 @@ public class MovieServiceImpl implements MovieService {
         List<Movie> movies = userData.getMovies();
         movies.add(movie);
         userData.setMovies(movies);
-        movieRepository.save(movie);
+        return movieRepository.save(movie);
     }
 
-    @Override
+
     public List<Movie> getAllByUserdataUsername(String username) {
         return movieRepository.getAllByUserdataUsername(username);
     }

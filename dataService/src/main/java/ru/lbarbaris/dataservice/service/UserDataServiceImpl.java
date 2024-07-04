@@ -2,6 +2,7 @@ package ru.lbarbaris.dataservice.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.lbarbaris.dataservice.entity.Movie;
 import ru.lbarbaris.dataservice.entity.UserData;
 import ru.lbarbaris.dataservice.entity.UserDataResponse;
 import ru.lbarbaris.dataservice.repository.MovieRepository;
@@ -18,7 +19,7 @@ public class UserDataServiceImpl implements UserDataService {
     private UserDataRepository userDataRepository;
 
     @Override
-    public void save(UserDataResponse userDataResponse) {
+    public UserData save(UserDataResponse userDataResponse) {
         UserData userData;
 
         //проверяем UserData
@@ -40,9 +41,13 @@ public class UserDataServiceImpl implements UserDataService {
             userData.getMovies().get(i).setUserdata(userData);
         }
 
-        userDataRepository.save(userData);
+        return userDataRepository.save(userData);
     }
 
+    @Override
+    public UserData getAllByUserdataUsername(String username) {
+        return userDataRepository.findByUsername(username);
+    }
 
 
     @Override
@@ -59,4 +64,6 @@ public class UserDataServiceImpl implements UserDataService {
     public void deleteById(Long aLong) {
         userDataRepository.deleteById(aLong);
     }
+
+
 }

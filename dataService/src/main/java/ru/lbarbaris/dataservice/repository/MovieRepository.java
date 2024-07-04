@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, Long> {
-        public List<Movie> getAllByUserdataUsername(@Param("username") String username);
+        List<Movie> getAllByUserdataUsername(@Param("username") String username);
 
 }

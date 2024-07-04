@@ -21,10 +21,9 @@ public class MovieService {
         return webClient.get()
                 .uri(links.allMovies.getDescription())
                 .retrieve()
-                .bodyToMono(MovieListResponse.class)
-                .block()
-                .getEmbedded()
-                .getMovieList();
+                .bodyToFlux(Movie.class)
+                .collectList()
+                .block();
     }
 
     public List<Movie> getMoviesList(String username){
@@ -32,10 +31,9 @@ public class MovieService {
         return webClient.get()
                 .uri(links.moviesByUsername.getDescription() + username)
                 .retrieve()
-                .bodyToMono(MovieListResponse.class)
-                .block()
-                .getEmbedded()
-                .getMovieList();
+                .bodyToFlux(Movie.class)
+                .collectList()
+                .block();
     }
 
 

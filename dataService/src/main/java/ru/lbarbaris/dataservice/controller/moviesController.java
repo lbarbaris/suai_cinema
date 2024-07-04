@@ -17,9 +17,8 @@ public class moviesController {
     private MovieService movieService;
 
     @PostMapping
-    public String saveMovie(@RequestBody MovieResponse movieResponse){
-        movieService.save(movieResponse);
-        return movieResponse.toString();
+    public Movie saveMovie(@RequestBody MovieResponse movieResponse){
+        return movieService.save(movieResponse);
     }
 
     @GetMapping
@@ -35,5 +34,12 @@ public class moviesController {
     @GetMapping("/{id}")
     public Optional<Movie> getById(@PathVariable("id") Long id) {
         return movieService.findById(id);
+    }
+
+    @GetMapping("/search/getAllByUserdataUsername")
+    public List<Movie> getAllByUsername(@RequestParam("username") String username){
+        System.out.println(movieService.getAllByUserdataUsername(username));
+        System.out.println(username);
+        return movieService.getAllByUserdataUsername(username);
     }
 }

@@ -19,9 +19,9 @@ public class userDataController {
         private UserDataService userDataService;
 
     @PostMapping
-    public String saveMovie(@RequestBody UserDataResponse userDataResponse){
-        userDataService.save(userDataResponse);
-        return userDataService.toString();
+    public UserData saveMovie(@RequestBody UserDataResponse userDataResponse){
+        return userDataService.save(userDataResponse);
+
     }
 
     @GetMapping
@@ -37,5 +37,12 @@ public class userDataController {
     @GetMapping("/{id}")
     public Optional<UserData> getById(@PathVariable("id") Long id) {
         return userDataService.findById(id);
+    }
+
+    @GetMapping("/search/getUserDataByUsername")
+    public UserData getAllByUsername(@RequestParam("username") String username){
+        System.out.println(userDataService.getAllByUserdataUsername(username));
+        System.out.println(username);
+        return userDataService.getAllByUserdataUsername(username);
     }
 }

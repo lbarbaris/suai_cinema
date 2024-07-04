@@ -8,7 +8,6 @@ import ru.lbarbaris.dataservice.entity.UserData;
 @Repository
 public interface UserDataRepository extends JpaRepository<UserData, Long> {
 
-    public UserData getUserDataByUsername(@Param("username") String username);
-
+    public UserData findByUsername(@Param("username") String username);
     public void deleteUserDataByUsername(@Param("username") String username);
 }

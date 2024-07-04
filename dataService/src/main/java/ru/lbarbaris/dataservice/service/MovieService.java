@@ -8,7 +8,8 @@ import java.util.List;
 
 public interface MovieService extends BaseService<Movie, Long> {
 
-    public void save(MovieResponse movieResponse);
+    public Movie save(MovieResponse movieResponse);
+
     public List<Movie> getAllByUserdataUsername(String username);
 
 
