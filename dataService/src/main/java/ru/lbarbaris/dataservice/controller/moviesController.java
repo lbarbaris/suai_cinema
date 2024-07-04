@@ -16,20 +16,6 @@ public class moviesController {
     @Autowired
     private MovieService movieService;
 
-
-    public String getMovie(@PathVariable String name){
-        return null;
-    }
-
-
-
-
-
-    public String getUserData(){
-        return null;
-    }
-
-
     @PostMapping
     public String saveMovie(@RequestBody MovieResponse movieResponse){
         movieService.save(movieResponse);

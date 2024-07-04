@@ -15,10 +15,10 @@ import java.util.Optional;
 @Service
 public class MovieServiceImpl implements MovieService {
     @Autowired
-    MovieRepository movieRepository;
+    private MovieRepository movieRepository;
 
     @Autowired
-    UserDataRepository userDataRepository;
+    private UserDataRepository userDataRepository;
 
     @Override
     public void save(MovieResponse movieResponse) {
@@ -69,8 +69,6 @@ public class MovieServiceImpl implements MovieService {
     public List<Movie> getAllByUserdataUsername(String username) {
         return movieRepository.getAllByUserdataUsername(username);
     }
-
-
 
 
     @Override
