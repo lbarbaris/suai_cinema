@@ -1,12 +1,15 @@
 package ru.lbarbaris.dataservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
-import lombok.Data;
-@JsonIgnoreProperties(ignoreUnknown = true)
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@Data
+import lombok.*;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name = "movie")
 public class Movie {
@@ -29,6 +32,18 @@ public class Movie {
     private float rating;
 
     @JoinColumn(name = "userdata_id")
+    @JsonBackReference
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private UserData userdata;
+
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "id=" + id +
+                ", imageurl='" + imageurl + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", rating=" + rating +
+                '}';
+    }
 }

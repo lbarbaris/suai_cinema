@@ -16,6 +16,14 @@
     <br>
     <span  th:text="${movie.description}" style="width: 200px; display: inline-block;"></span>
     <hr>
+    <form th:action="@{/addToMyMovies}" method="post">
+        <input type="hidden" th:name="name" th:value="${movie.name}">
+        <input type="hidden" th:name="rating" th:value="${movie.rating}">
+        <input type="hidden" th:name="description" th:value="${movie.description}">
+        <input type="hidden" th:name="imageurl" th:value="${movie.imageurl}">
+        <button type="submit">Add to My Movies</button>
+    </form>
+
     <br>
     <br>
     <br>

@@ -1,4 +1,4 @@
-package ru.lbarbaris.dataservice.dao;
+package ru.lbarbaris.dataservice.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, Long> {
         public List<Movie> getAllByUserdataUsername(@Param("username") String username);
+
 }

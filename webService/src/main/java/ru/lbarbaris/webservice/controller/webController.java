@@ -6,6 +6,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.lbarbaris.webservice.service.dataService.MovieService;
 import ru.lbarbaris.webservice.service.dataService.UserDataService;
 import ru.lbarbaris.webservice.dto.dataService.Movie;
@@ -38,11 +40,21 @@ public class webController {
 
     @GetMapping("/allMovies")
     public String allMovies(Model model){
-        System.out.println(siteService.getMoviesList().get(1).getImageurl());
-        model.addAllAttributes(Map.of("Movies", siteService.getMoviesList() ));
+        String authName = SecurityContextHolder.getContext().getAuthentication().getName();
+        UserData userData = userDataService.getUserData(authName);
+        model.addAllAttributes(Map.of("Movies", siteService.getMoviesList(), "User", userData));
         return "allMovies";
     }
 
+    @PostMapping("/addToMyMovies")
+    public String addToMyMovies(@RequestParam String name,
+                                @RequestParam float rating,
+                                @RequestParam String description,
+                                @RequestParam String imageurl) {
+        Movie movie = new Movie(imageurl, name, description, rating);
+        movieService.
+        return "redirect:/myMovies";
+    }
 /*    @GetMapping("/profile/{username}")
     public String showImages(Model model, @PathVariable String username) {
         List<Movie> list = movieService.getMovies("http://localhost:8081/movies").collectList().block();
