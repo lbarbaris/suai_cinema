@@ -32,21 +32,14 @@ public class webController {
         String authName = SecurityContextHolder.getContext().getAuthentication().getName();
         UserData userData = userDataService.getUserData(authName);
         List<Movie> movies = movieService.getMoviesList(authName);
-        System.out.println(siteService.getMoviesList());
         model.addAllAttributes(Map.of("Movies", movies, "User", userData));
         return "myMovies";
-
-
-
- /*        List<String> imageUrls = List.of(
-                    "http://image.tmdb.org/t/p/w500/hxP5zubomplKlOZaXmgHd1P9WsN.jpg"
-        );
-        model.addAttribute("imageUrls", imageUrls);
-        return "images";*/
     }
 
-    @GetMapping
+    @GetMapping("/allMovies")
     public String allMovies(Model model){
+        System.out.println(siteService.getMoviesList().get(1).getImageurl());
+        model.addAllAttributes(Map.of("Movies", siteService.getMoviesList() ));
         return "allMovies";
     }
 

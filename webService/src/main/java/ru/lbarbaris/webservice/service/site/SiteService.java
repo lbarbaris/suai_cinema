@@ -13,6 +13,8 @@ import ru.lbarbaris.webservice.dto.site.SiteResponse;
 import java.util.ArrayList;
 import java.util.List;
 
+import static ru.lbarbaris.webservice.dto.links.poster;
+
 @Service
 public class SiteService {
 
@@ -38,7 +40,7 @@ public class SiteService {
             //Особенность themoviedb.org - фильмы имеют title, сериалы name
             if (siteResponse.getList().get(i).getTitle() == null){
                 result.add(new Movie(
-                        siteMovie.getPoster_path(),
+                        poster.getDescription() + siteMovie.getPoster_path(),
                         siteMovie.getName(),
                         siteMovie.getOverview(),
                         siteMovie.getVote_average()
@@ -46,7 +48,7 @@ public class SiteService {
             }
             else
                 result.add(new Movie(
-                        siteMovie.getPoster_path(),
+                        poster.getDescription() + siteMovie.getPoster_path(),
                         siteMovie.getTitle(),
                         siteMovie.getOverview(),
                         siteMovie.getVote_average()
