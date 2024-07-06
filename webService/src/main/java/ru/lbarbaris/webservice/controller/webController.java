@@ -47,12 +47,14 @@ public class webController {
     }
 
     @PostMapping("/addToMyMovies")
-    public String addToMyMovies(@RequestParam String name,
-                                @RequestParam float rating,
-                                @RequestParam String description,
-                                @RequestParam String imageurl) {
+    public String addToMyMovies(@RequestParam(name = "name") String name,
+                                @RequestParam(name = "rating") float rating,
+                                @RequestParam(name = "description") String description,
+                                @RequestParam(name = "imageurl") String imageurl) {
         Movie movie = new Movie(imageurl, name, description, rating);
-        /*movieService.*/
+        String authName = SecurityContextHolder.getContext().getAuthentication().getName();
+        UserData userData = userDataService.getUserData(authName);
+        movieService.saveMovie(movie, userData);
         return "redirect:/myMovies";
     }
 /*    @GetMapping("/profile/{username}")

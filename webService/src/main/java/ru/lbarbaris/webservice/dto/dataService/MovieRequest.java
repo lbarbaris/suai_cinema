@@ -1,16 +1,14 @@
 package ru.lbarbaris.webservice.dto.dataService;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
-
 
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
 @AllArgsConstructor
-public final class Movie {
-
-
+@ToString
+public class MovieRequest {
     private long id;
 
     private String imageurl;
@@ -21,11 +19,6 @@ public final class Movie {
 
     private float rating;
 
-
-    public Movie(String imageurl, String name, String description, float rating) {
-        this.imageurl = imageurl;
-        this.name = name;
-        this.description = description;
-        this.rating = rating;
-    }
+    @JsonProperty("userdata")
+    private UserData userdata;
 }

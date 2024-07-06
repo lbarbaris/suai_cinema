@@ -3,8 +3,11 @@ package ru.lbarbaris.webservice.service.dataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 import ru.lbarbaris.webservice.dto.dataService.Movie;
 import ru.lbarbaris.webservice.dto.dataService.MovieListResponse;
+import ru.lbarbaris.webservice.dto.dataService.MovieRequest;
+import ru.lbarbaris.webservice.dto.dataService.UserData;
 import ru.lbarbaris.webservice.dto.links;
 
 import java.util.List;
@@ -34,6 +37,22 @@ public class MovieService {
                 .bodyToFlux(Movie.class)
                 .collectList()
                 .block();
+    }
+
+
+    public Movie saveMovie(Movie movie, UserData userData){
+        MovieRequest movieRequest = new MovieRequest(movie.getId(), movie.getImageurl(), movie.getName(), movie.getDescription(), movie.getRating(), userData);
+        WebClient webClient = webClientBuilder.build();
+        System.out.println(movieRequest);
+        movieRequest = webClient.post()
+                .uri(links.allMovies.getDescription())
+                .body(Mono.just(movieRequest), MovieRequest.class)
+                .retrieve()
+                .bodyToMono(MovieRequest.class)
+                .block();
+        System.out.println(movieRequest);
+        return new Movie(movieRequest.getId(), movieRequest.getImageurl(), movieRequest.getName(), movieRequest.getDescription(), movieRequest.getRating());
+
     }
 
 

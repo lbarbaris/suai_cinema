@@ -20,25 +20,5 @@ public final class UserData {
 
         /*private List<Movie> movies;*/
 
-        @JsonProperty("_links")
-        private Links links;
 
-
-        @Getter
-        @Setter
-        @ToString
-        private static class Links{
-                @JsonProperty("movies")
-                private movie movie;
-                @Getter
-                @Setter
-                @ToString
-                private static class movie{
-                        private String href;
-                }
-        }
-
-        public String getMovieLink(){
-                return links.getMovie().getHref();
-        }
 }
