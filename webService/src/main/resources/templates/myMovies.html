@@ -5,6 +5,9 @@
     <title>Images</title>
 </head>
 <body>
+<a href="/allMovies">View All Movies</a>
+<br>
+<br>
 <h1 th:text="${User.username}"></h1>
 <div th:each="movie : ${Movies} ">
     <p th:text="${movie.name}"></p>
