@@ -21,6 +21,11 @@ public class moviesController {
         return movieService.save(movieResponse);
     }
 
+    @PostMapping("/deleteByMovie")
+    public void deleteMovie(@RequestBody MovieResponse movieResponse){
+        movieService.delete(movieResponse);
+    }
+
     @GetMapping
     public List<Movie> getAll() {
         return movieService.findAll();

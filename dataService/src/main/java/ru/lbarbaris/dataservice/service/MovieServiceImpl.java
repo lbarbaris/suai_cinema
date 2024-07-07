@@ -1,5 +1,6 @@
 package ru.lbarbaris.dataservice.service;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.lbarbaris.dataservice.entity.Movie;
@@ -68,6 +69,12 @@ public class MovieServiceImpl implements MovieService {
 
     public List<Movie> getAllByUserdataUsername(String username) {
         return movieRepository.getAllByUserdataUsername(username);
+    }
+
+    @Override
+    @Transactional
+    public void delete(MovieResponse movieResponse) {
+        movieRepository.deleteByNameAndUserdata(movieResponse.getName(), userDataRepository.getReferenceById(movieResponse.getUserDataInfo().getId()));
     }
 
 

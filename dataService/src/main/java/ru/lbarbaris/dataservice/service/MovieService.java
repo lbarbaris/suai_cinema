@@ -1,5 +1,6 @@
 package ru.lbarbaris.dataservice.service;
 
+import org.springframework.data.repository.query.Param;
 import ru.lbarbaris.dataservice.entity.Movie;
 import ru.lbarbaris.dataservice.entity.MovieResponse;
 import ru.lbarbaris.dataservice.entity.UserData;
@@ -12,5 +13,5 @@ public interface MovieService extends BaseService<Movie, Long> {
 
     public List<Movie> getAllByUserdataUsername(String username);
 
-
+    public void delete(MovieResponse movieResponse);
 }

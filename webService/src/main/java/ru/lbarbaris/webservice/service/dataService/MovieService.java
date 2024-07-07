@@ -40,20 +40,29 @@ public class MovieService {
     }
 
 
-    public Movie saveMovie(Movie movie, UserData userData){
+    public void saveMovie(Movie movie, UserData userData){
         MovieRequest movieRequest = new MovieRequest(movie.getId(), movie.getImageurl(), movie.getName(), movie.getDescription(), movie.getRating(), userData);
         WebClient webClient = webClientBuilder.build();
-        System.out.println(movieRequest);
-        movieRequest = webClient.post()
+                webClient.post()
                 .uri(links.allMovies.getDescription())
                 .body(Mono.just(movieRequest), MovieRequest.class)
                 .retrieve()
                 .bodyToMono(MovieRequest.class)
                 .block();
-        System.out.println(movieRequest);
-        return new Movie(movieRequest.getId(), movieRequest.getImageurl(), movieRequest.getName(), movieRequest.getDescription(), movieRequest.getRating());
-
     }
+
+
+    public void deleteMovie(Movie movie, UserData userData){
+        MovieRequest movieRequest = new MovieRequest(movie.getId(), movie.getImageurl(), movie.getName(), movie.getDescription(), movie.getRating(), userData);
+        WebClient webClient = webClientBuilder.build();
+        webClient.post()
+                .uri(links.allMovies.getDescription() + "/deleteByMovie")
+                .body(Mono.just(movieRequest), MovieRequest.class)
+                .retrieve()
+                .bodyToMono(MovieRequest.class)
+                .block();
+    }
+
 
 
 }

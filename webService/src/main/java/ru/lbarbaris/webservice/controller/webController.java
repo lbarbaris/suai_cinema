@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -70,6 +71,19 @@ public class webController {
         UserData userData = userDataService.getUserData(authName);
         userData.setCinemaCount(userData.getCinemaCount() + 1);
         movieService.saveMovie(movie, userData);
+        return "redirect:/myMovies";
+    }
+
+    @PostMapping("/deleteFromMyMovies")
+    public String deleteFromMyMovies(@RequestParam(name = "name") String name,
+                                     @RequestParam(name = "rating") float rating,
+                                     @RequestParam(name = "description") String description,
+                                     @RequestParam(name = "imageurl") String imageurl) {
+        String authName = SecurityContextHolder.getContext().getAuthentication().getName();
+        Movie movie = new Movie(imageurl, name, description, rating);
+        UserData userData = userDataService.getUserData(authName);
+        userData.setCinemaCount(userData.getCinemaCount() - 1);
+        movieService.deleteMovie(movie, userData);
         return "redirect:/myMovies";
     }
 /*    @GetMapping("/profile/{username}")

@@ -41,8 +41,6 @@ public class userDataController {
 
     @GetMapping("/search/getUserDataByUsername")
     public UserData getAllByUsername(@RequestParam("username") String username){
-        System.out.println(userDataService.getAllByUserdataUsername(username));
-        System.out.println(username);
         return userDataService.getAllByUserdataUsername(username);
     }
 }
