@@ -14,6 +14,7 @@ import ru.lbarbaris.webservice.dto.dataService.Movie;
 import ru.lbarbaris.webservice.dto.dataService.UserData;
 import ru.lbarbaris.webservice.service.site.SiteService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -42,7 +43,20 @@ public class webController {
     public String allMovies(Model model){
         String authName = SecurityContextHolder.getContext().getAuthentication().getName();
         UserData userData = userDataService.getUserData(authName);
-        model.addAllAttributes(Map.of("Movies", siteService.getMoviesList(), "User", userData));
+        List<Movie> moviesFromUser = movieService.getMoviesList(authName);
+        List<Movie> moviesFromSite = siteService.getMoviesList();
+        List<Boolean> buttons = new ArrayList<Boolean>();
+        for (int i = 0; i < moviesFromSite.size(); i++) {
+            boolean isUserHaveFilm = false;
+            for (int j = 0; j < moviesFromUser.size(); j++) {
+                if (moviesFromSite.get(i).getName().equals(moviesFromUser.get(j).getName())) {
+                    isUserHaveFilm = true;
+                    break;
+                }
+            }
+            buttons.add(isUserHaveFilm);
+        }
+        model.addAllAttributes(Map.of("Movies", moviesFromSite, "User", userData, "Buttons", buttons));
         return "allMovies";
     }
 
@@ -54,6 +68,7 @@ public class webController {
         Movie movie = new Movie(imageurl, name, description, rating);
         String authName = SecurityContextHolder.getContext().getAuthentication().getName();
         UserData userData = userDataService.getUserData(authName);
+        userData.setCinemaCount(userData.getCinemaCount() + 1);
         movieService.saveMovie(movie, userData);
         return "redirect:/myMovies";
     }
