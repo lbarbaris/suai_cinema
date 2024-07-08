@@ -71,7 +71,7 @@ public class webController {
         UserData userData = userDataService.getUserData(authName);
         userData.setCinemaCount(userData.getCinemaCount() + 1);
         movieService.saveMovie(movie, userData);
-        return "redirect:/myMovies";
+        return "redirect:/allMovies";
     }
 
     @PostMapping("/deleteFromMyMovies")
@@ -84,7 +84,7 @@ public class webController {
         UserData userData = userDataService.getUserData(authName);
         userData.setCinemaCount(userData.getCinemaCount() - 1);
         movieService.deleteMovie(movie, userData);
-        return "redirect:/myMovies";
+        return "redirect:/allMovies";
     }
 
     @PostMapping("/deleteMovie")
