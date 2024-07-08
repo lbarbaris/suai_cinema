@@ -63,6 +63,15 @@ public class MovieService {
                 .block();
     }
 
+    public void deleteMovie(Long id){
+        WebClient webClient = webClientBuilder.build();
+        webClient.delete()
+                .uri(links.allMovies.getDescription() + "/" + id)
+                .retrieve()
+                .bodyToMono(Void.class)
+                .block();
+    }
+
 
 
 }

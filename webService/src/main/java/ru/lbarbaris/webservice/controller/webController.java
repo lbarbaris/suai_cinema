@@ -75,15 +75,21 @@ public class webController {
     }
 
     @PostMapping("/deleteFromMyMovies")
-    public String deleteFromMyMovies(@RequestParam(name = "name") String name,
-                                     @RequestParam(name = "rating") float rating,
-                                     @RequestParam(name = "description") String description,
-                                     @RequestParam(name = "imageurl") String imageurl) {
+    public String deleteFromAllMoviesPage(@RequestParam(name = "name") String name,
+                                          @RequestParam(name = "rating") float rating,
+                                          @RequestParam(name = "description") String description,
+                                          @RequestParam(name = "imageurl") String imageurl) {
         String authName = SecurityContextHolder.getContext().getAuthentication().getName();
         Movie movie = new Movie(imageurl, name, description, rating);
         UserData userData = userDataService.getUserData(authName);
         userData.setCinemaCount(userData.getCinemaCount() - 1);
         movieService.deleteMovie(movie, userData);
+        return "redirect:/myMovies";
+    }
+
+    @PostMapping("/deleteMovie")
+    public String deleteFromAccountPage(@RequestParam(name = "Id") Long id){
+        movieService.deleteMovie(id);
         return "redirect:/myMovies";
     }
 /*    @GetMapping("/profile/{username}")

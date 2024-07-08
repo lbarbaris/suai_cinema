@@ -11,6 +11,10 @@
 <h1 th:text="${User.username}"></h1>
 <div th:each="movie : ${Movies} ">
     <p th:text="${movie.name}"></p>
+    <form th:action="@{/deleteMovie}" method="post">
+        <input type="hidden" th:name="Id" th:value="${movie.id}"/>
+        <button type="delete">Submit</button>
+    </form>
 </div>
 </body>
 </html>
