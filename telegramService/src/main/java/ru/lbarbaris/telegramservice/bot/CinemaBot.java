@@ -53,8 +53,6 @@ public class CinemaBot extends TelegramLongPollingBot {
 
         moviesFromSite.removeIf(movie -> moviesFromUser.stream().anyMatch(movie1 -> movie1.getName().equals(movie.getName())));
 
-        System.out.println(moviesFromSite);
-
 
         for (int i = 0; i < moviesFromSite.size(); i++) {
             SendPhoto sendPhotoRequest = new SendPhoto();
