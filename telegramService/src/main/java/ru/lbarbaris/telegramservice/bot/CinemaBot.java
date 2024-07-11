@@ -39,7 +39,7 @@ public class CinemaBot extends TelegramLongPollingBot {
         }
         switch (update.getMessage().getText()){
             case "/allMovies" -> allMovies(update);
-
+            case "/myMovies" -> myMovies(update);
 
         }
     }
@@ -47,20 +47,35 @@ public class CinemaBot extends TelegramLongPollingBot {
     private void allMovies(Update update){
         var username = update.getMessage().getChat().getUserName();
 
-        UserData userData = userDataService.getUserData(username);
         List<Movie> moviesFromUser = movieService.getMoviesList(username);
         List<Movie> moviesFromSite = siteService.getMoviesList();
 
         moviesFromSite.removeIf(movie -> moviesFromUser.stream().anyMatch(movie1 -> movie1.getName().equals(movie.getName())));
 
+        sendMovies(moviesFromSite, update);
+    }
 
-        for (int i = 0; i < moviesFromSite.size(); i++) {
+
+
+
+    private void myMovies(Update update){
+        var username = update.getMessage().getChat().getUserName();
+        List<Movie> movies = movieService.getMoviesList(username);
+
+        sendMovies(movies, update);
+    }
+
+
+
+
+    private void sendMovies(List<Movie> movies, Update update){
+        for (Movie movie : movies) {
             SendPhoto sendPhotoRequest = new SendPhoto();
             sendPhotoRequest.setChatId(update.getMessage().getChatId().toString());
-            sendPhotoRequest.setPhoto(new InputFile(moviesFromSite.get(i).getImageurl()));
-            sendPhotoRequest.setCaption("*" + moviesFromSite.get(i).getName() + "*" + '\n' +
-                                        "*Rating*" + " : " + moviesFromSite.get(i).getRating() + '\n' +
-                                        moviesFromSite.get(i).getDescription());
+            sendPhotoRequest.setPhoto(new InputFile(movie.getImageurl()));
+            sendPhotoRequest.setCaption("*" + movie.getName() + "*" + '\n' +
+                    "*Rating*" + " : " + movie.getRating() + '\n' +
+                    movie.getDescription());
             sendPhotoRequest.setParseMode("Markdown");
 
             try {
