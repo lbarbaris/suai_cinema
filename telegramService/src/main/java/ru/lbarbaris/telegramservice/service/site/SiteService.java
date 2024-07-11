@@ -1,17 +1,18 @@
-package ru.lbarbaris.webservice.service.site;
-import ru.lbarbaris.webservice.dto.site.SiteResponse.SiteMovie;
+package ru.lbarbaris.telegramservice.service.site;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import ru.lbarbaris.webservice.dto.dataService.Movie;
-import ru.lbarbaris.webservice.dto.links;
-import ru.lbarbaris.webservice.dto.site.SiteResponse;
+import ru.lbarbaris.telegramservice.dto.dataService.Movie;
+import ru.lbarbaris.telegramservice.dto.links;
+import ru.lbarbaris.telegramservice.dto.site.SiteResponse;
+import ru.lbarbaris.telegramservice.dto.site.SiteResponse.SiteMovie;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static ru.lbarbaris.webservice.dto.links.poster;
+import static ru.lbarbaris.telegramservice.dto.links.poster;
 
 @Service
 public class SiteService {
