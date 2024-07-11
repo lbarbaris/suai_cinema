@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -50,10 +51,19 @@ public class CinemaBot extends TelegramLongPollingBot {
         List<Movie> moviesFromUser = movieService.getMoviesList(username);
         List<Movie> moviesFromSite = siteService.getMoviesList();
 
+        moviesFromSite.removeIf(movie -> moviesFromUser.stream().anyMatch(movie1 -> movie1.getName().equals(movie.getName())));
+
+        System.out.println(moviesFromSite);
+
+
         for (int i = 0; i < moviesFromSite.size(); i++) {
             SendPhoto sendPhotoRequest = new SendPhoto();
             sendPhotoRequest.setChatId(update.getMessage().getChatId().toString());
             sendPhotoRequest.setPhoto(new InputFile(moviesFromSite.get(i).getImageurl()));
+            sendPhotoRequest.setCaption("*" + moviesFromSite.get(i).getName() + "*" + '\n' +
+                                        "*Rating*" + " : " + moviesFromSite.get(i).getRating() + '\n' +
+                                        moviesFromSite.get(i).getDescription());
+            sendPhotoRequest.setParseMode("Markdown");
 
             try {
                 execute(sendPhotoRequest);

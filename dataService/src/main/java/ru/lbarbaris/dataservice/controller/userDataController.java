@@ -19,7 +19,7 @@ public class userDataController {
         private UserDataService userDataService;
 
     @PostMapping
-    public UserData saveMovie(@RequestBody UserDataResponse userDataResponse){
+    public UserData saveUser(@RequestBody UserDataResponse userDataResponse){
         return userDataService.save(userDataResponse);
 
     }

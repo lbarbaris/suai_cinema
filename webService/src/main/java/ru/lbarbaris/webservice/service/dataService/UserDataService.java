@@ -3,9 +3,9 @@ package ru.lbarbaris.webservice.service.dataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 import ru.lbarbaris.webservice.dto.*;
-import ru.lbarbaris.webservice.dto.dataService.UserData;
-import ru.lbarbaris.webservice.dto.dataService.UserDataListResponse;
+import ru.lbarbaris.webservice.dto.dataService.*;
 
 import java.util.List;
 
@@ -28,7 +28,6 @@ public class UserDataService {
 
     public UserData getUserData(String username){
         WebClient webClient = webClientBuilder.build();
-
         return webClient.get()
                 .uri(links.userDataByUsername.getDescription() + username)
                 .retrieve()
@@ -37,7 +36,16 @@ public class UserDataService {
 
     }
 
-
+    public void save(UserData userData, List<Movie> movies){
+        UserDataRequest userDataRequest = new UserDataRequest(userData.getId(), userData.getUsername(), userData.getCinemaCount(), movies);
+        WebClient webClient = webClientBuilder.build();
+        webClient.post()
+                .uri(links.allUsers.getDescription())
+                .body(Mono.just(userDataRequest), UserDataRequest.class)
+                .retrieve()
+                .bodyToMono(UserDataRequest.class)
+                .block();
+    }
 
 
 }

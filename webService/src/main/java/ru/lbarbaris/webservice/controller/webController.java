@@ -46,6 +46,10 @@ public class webController {
         UserData userData = userDataService.getUserData(authName);
         List<Movie> moviesFromUser = movieService.getMoviesList(authName);
         List<Movie> moviesFromSite = siteService.getMoviesList();
+        if (userData == null && authName != null){
+            userData = new UserData(0, authName, 0);
+            userDataService.save(userData, moviesFromUser);
+        }
         List<Boolean> buttons = new ArrayList<Boolean>();
         for (int i = 0; i < moviesFromSite.size(); i++) {
             boolean isUserHaveFilm = false;
