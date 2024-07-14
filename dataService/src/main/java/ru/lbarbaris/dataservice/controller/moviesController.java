@@ -43,8 +43,6 @@ public class moviesController {
 
     @GetMapping("/search/getAllByUserdataUsername")
     public List<Movie> getAllByUsername(@RequestParam("username") String username){
-        System.out.println(movieService.getAllByUserdataUsername(username));
-        System.out.println(username);
         return movieService.getAllByUserdataUsername(username);
     }
 }

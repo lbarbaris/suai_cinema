@@ -14,4 +14,5 @@ public interface MovieService extends BaseService<Movie, Long> {
     public List<Movie> getAllByUserdataUsername(String username);
 
     public void delete(MovieResponse movieResponse);
+
 }
