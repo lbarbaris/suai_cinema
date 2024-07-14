@@ -60,9 +60,9 @@ public class CinemaBot extends TelegramLongPollingBot {
         List<Movie> moviesFromUser = movieService.getMoviesList(username);
         List<Movie> moviesFromSite = siteService.getMoviesList();
 
-        moviesFromSite.removeIf(movie -> moviesFromUser.stream().anyMatch(movie1 -> movie1.getName().equals(movie.getName())));
 
-        if (!moviesFromSite.isEmpty()){
+        if (moviesFromSite != null && !moviesFromSite.isEmpty()){
+            moviesFromSite.removeIf(movie -> moviesFromUser.stream().anyMatch(movie1 -> movie1.getName().equals(movie.getName())));
             sendMovies(moviesFromSite, update, false);
         }
         else {

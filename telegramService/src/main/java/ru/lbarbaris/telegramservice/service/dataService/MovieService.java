@@ -1,8 +1,10 @@
 package ru.lbarbaris.telegramservice.service.dataService;
 
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientRequestException;
 import reactor.core.publisher.Mono;
 import ru.lbarbaris.telegramservice.dto.dataService.Movie;
 import ru.lbarbaris.telegramservice.dto.dataService.MovieRequest;
@@ -11,6 +13,7 @@ import ru.lbarbaris.telegramservice.dto.links;
 
 import java.util.List;
 
+@Log4j2
 @Service
 public class MovieService {
 
@@ -19,7 +22,6 @@ public class MovieService {
 
     public List<Movie> getMoviesList(){
         WebClient webClient = webClientBuilder.build();
-
         return webClient.get()
                 .uri(links.allMovies.getDescription())
                 .retrieve()
@@ -29,13 +31,20 @@ public class MovieService {
     }
 
     public List<Movie> getMoviesList(String username){
-        WebClient webClient = webClientBuilder.build();
-        return webClient.get()
-                .uri(links.moviesByUsername.getDescription() + username)
-                .retrieve()
-                .bodyToFlux(Movie.class)
-                .collectList()
-                .block();
+        List<Movie> movieList = null;
+        try {
+            WebClient webClient = webClientBuilder.build();
+            movieList = webClient.get()
+                    .uri(links.moviesByUsername.getDescription() + username)
+                    .retrieve()
+                    .bodyToFlux(Movie.class)
+                    .collectList()
+                    .block();
+        }
+        catch (WebClientRequestException e){
+            log.error(e);
+        }
+        return movieList;
     }
 
 
