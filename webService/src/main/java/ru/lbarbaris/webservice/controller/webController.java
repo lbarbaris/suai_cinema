@@ -50,19 +50,24 @@ public class webController {
             userData = new UserData(0, authName, 0);
             userDataService.save(userData, moviesFromUser);
         }
-        List<Boolean> buttons = new ArrayList<Boolean>();
-        for (int i = 0; i < moviesFromSite.size(); i++) {
-            boolean isUserHaveFilm = false;
-            for (int j = 0; j < moviesFromUser.size(); j++) {
-                if (moviesFromSite.get(i).getName().equals(moviesFromUser.get(j).getName())) {
-                    isUserHaveFilm = true;
-                    break;
+        if (moviesFromSite != null) {
+            List<Boolean> buttons = new ArrayList<Boolean>();
+            for (int i = 0; i < moviesFromSite.size(); i++) {
+                boolean isUserHaveFilm = false;
+                for (int j = 0; j < moviesFromUser.size(); j++) {
+                    if (moviesFromSite.get(i).getName().equals(moviesFromUser.get(j).getName())) {
+                        isUserHaveFilm = true;
+                        break;
+                    }
                 }
+                buttons.add(isUserHaveFilm);
             }
-            buttons.add(isUserHaveFilm);
+            model.addAllAttributes(Map.of("Movies", moviesFromSite, "User", userData, "Buttons", buttons));
+            return "allMovies";
         }
-        model.addAllAttributes(Map.of("Movies", moviesFromSite, "User", userData, "Buttons", buttons));
-        return "allMovies";
+        else {
+            return "error";
+        }
     }
 
     @PostMapping("/addToMyMovies")
